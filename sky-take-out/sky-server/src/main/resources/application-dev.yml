@@ -1,0 +1,15 @@
+sky:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    host: localhost
+    port: 3306
+    database: sky_take_out
+    username: root
+    password: 123456
+  redis:
+    host: localhost
+    port: 6379
+    database: 10  #redis一共只有16个库，指定使用哪一个数据库，一般为0
+  wechat:
+    appid: wx99db737a64422556
+    secret: 903479da301afa05cbb1e51f6117d367
