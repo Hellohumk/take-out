@@ -21,30 +21,26 @@ public class CommonControllor {
 
 
     @PostMapping("/upload")
-    public Result<String> upload(MultipartFile file){
-
-        log.info("upload files:{}",file);
-
-        try{
-            String originalName = file.getOriginalFilename();
-            //拓展名
-            String extName = originalName.substring(originalName.lastIndexOf("."));
-
-            String filename = UUID.randomUUID() + extName;
-
-            String fileurl = "D:\\JAVA-library\\sky-take-out\\sky-server\\src\\main\\resources\\static\\img\\" + filename;
-
-            file.transferTo(new File(fileurl));
-
-            String returnurl = "http://127.0.0.1:8080/img/" + filename;
-
-            return Result.success(returnurl);
-        }catch(IOException e){
-            log.error("upload failed:{}",e);
+    public Result<String> upload(MultipartFile file) {
+        log.info("文件上传:{}", file);
+        String originalFilename = file.getOriginalFilename();
+        try {
+            if (originalFilename != null) {
+                // 利用UUID构造新的文件名称
+                String objectName = UUID.randomUUID().toString() + originalFilename;
+                // 文件的请求路径
+                String filePath = "D:\\JAVA-library\\SkyTakeOut\\sky-take-out\\files\\" + objectName;
+                String returnImagePate = "http://127.0.0.1:8080/files/" + objectName;
+                file.transferTo(new File(filePath));
+                return Result.success(returnImagePate);
+            } else {
+                throw new IOException(MessageConstant.UPLOAD_FAILED);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error("文件上传失败:{}", e);
         }
         return Result.error(MessageConstant.UPLOAD_FAILED);
-
     }
-
 
 }

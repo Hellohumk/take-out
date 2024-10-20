@@ -56,4 +56,7 @@ public interface DishMapper {
      * @return
      */
     Integer countByMap(Map map);
+
+    @Select("select id from dish where name = #{name}")
+    Long getIdByName(String name);
 }

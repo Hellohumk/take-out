@@ -171,13 +171,16 @@ public class DishServiceImpl implements DishService {
         BeanUtils.copyProperties(dishDTO,dish);
         //1 修改菜品表基本信息
         dishMapper.insert(dish);
+        //获取菜品id 20241020解决flavor传回空问题
+        Long id = dishMapper.getIdByName(dish.getName());
+        dishDTO.setId(id);
         //2 先删除原来的口味数据
         dishFlavorMapper.deleteByDishId(dishDTO.getId());
         //3 再插入口味
         List<DishFlavor> flavors = dishDTO.getFlavors();
         if(flavors != null && flavors.size() > 0){
             flavors.forEach(dishFlavor -> {
-                dishFlavor.setDishId(dishDTO.getId()); //flavor这个entity中没有dish——id这个属性，没赋值进去；估计客户端给的dishId是个空
+                dishFlavor.setDishId(dishDTO.getId());
             });
             //向口味表插入n条数据 //一个菜nmd多个口味
             dishFlavorMapper.insertBatch(flavors);

@@ -74,6 +74,6 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-        registry.addResourceHandler("/img/**").addResourceLocations("file:\\D:\\JAVA-library\\sky-take-out\\sky-server\\src\\main\\resources\\static\\img\\");
+        registry.addResourceHandler("/files/**").addResourceLocations("file:D:\\JAVA-library\\SkyTakeOut\\sky-take-out\\files\\");
     }
 }
