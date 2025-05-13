@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -70,6 +71,7 @@ public class SetmealController {
 
     @GetMapping("/{id}")
     @ApiOperation("根据ID查询套餐")
+    @Cacheable(cacheNames = "setmealCache",key = "#id")
     public Result<SetmealVO> getBySetmealId(@PathVariable Long id) {
         log.info("根据id查询套餐：{}",id);
 

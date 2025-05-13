@@ -2,6 +2,7 @@ package com.sky.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sky.annotaion.DelCache;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.dto.SetmealDTO;
@@ -65,6 +66,7 @@ public class SetmealServiceImpl implements SetmealService {
      * @param setmealDTO
      */
     @Override
+    @DelCache(CacheName = "setmealCache")
     public void saveWithDish(SetmealDTO setmealDTO) {
         Setmeal setmeal = new Setmeal();
         BeanUtils.copyProperties(setmealDTO,setmeal);
@@ -119,6 +121,7 @@ public class SetmealServiceImpl implements SetmealService {
 
     @Override
     @Transactional
+    @DelCache(CacheName = "setmealCache")
     public void deleteBatch(List<Long> ids) {
         //判断当前套餐是否在启售中，启售中不能删除
         for (Long id : ids) {
@@ -147,11 +150,13 @@ public class SetmealServiceImpl implements SetmealService {
         BeanUtils.copyProperties(setmeal,setmealVO);
         setmealVO.setSetmealDishes(setmealDishes);
 
+
         return setmealVO;
     }
 
     @Override
     @Transactional
+    @DelCache(CacheName = "setmealCache")
     public void update(SetmealDTO setmealDTO) {
         Setmeal setmeal = new Setmeal();
         BeanUtils.copyProperties(setmealDTO,setmeal);

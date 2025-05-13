@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
         }
         //判断是否为新用户（查自己的表）
         User user = userMapper.getByOpenid(openid);
-        //是新用户就保存金=进表
+        //是新用户就保存进表
         if(user == null){
             user = User.builder()
                     .openid(openid)
